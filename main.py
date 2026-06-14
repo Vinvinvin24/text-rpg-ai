@@ -1,4 +1,67 @@
 from player import Player
+from enemy import Enemy
+from random import choice
+
+def combat(player, enemy):
+
+    while player.hp > 0 and enemy.hp > 0:
+
+        print("\n------")
+
+        print(f"{player.name}: {player.hp} HP")
+
+        print(f"{enemy.name}: {enemy.hp} HP")
+
+        print("------")
+
+        input("Press Enter to attack...")
+
+        enemy.hp -= player.attack
+
+        print(
+            f"You hit the {enemy.name} "
+            f"for {player.attack} damage!"
+        )
+
+        if enemy.hp <= 0:
+
+            print(
+                f"You defeated the {enemy.name}!"
+            )
+
+            break
+
+        player.hp -= enemy.attack
+
+        print(
+            f"The {enemy.name} hits you "
+            f"for {enemy.attack} damage!"
+        )
+
+    if player.hp <= 0:
+
+        print("\nYou were defeated...")
+
+
+def explore(player):
+
+    enemies = [
+
+        Enemy("Goblin", 30, 8),
+
+        Enemy("Wolf", 40, 10),
+
+        Enemy("Slime", 20, 5)
+
+    ]
+
+    enemy = choice(enemies)
+
+    print("\nYou leave town...")
+
+    print(f"A {enemy.name} appears!")
+
+    combat(player, enemy)
 
 
 def town_menu(player):
@@ -19,8 +82,7 @@ def town_menu(player):
 
         if choice == "1":
 
-            print("\nYou walk outside the town...")
-            print("Nothing happens yet.")
+            explore(player)
 
         elif choice == "2":
 
