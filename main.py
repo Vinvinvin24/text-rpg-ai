@@ -29,6 +29,17 @@ def combat(player, enemy):
                 f"You defeated the {enemy.name}!"
             )
 
+            player.gain_exp(
+                enemy.exp_reward
+            )
+
+            player.gold += enemy.gold_reward
+
+            print(
+                f"You received "
+                f"{enemy.gold_reward} gold!"
+            )
+
             break
 
         player.hp -= enemy.attack
@@ -47,11 +58,29 @@ def explore(player):
 
     enemies = [
 
-        Enemy("Goblin", 30, 8),
+        Enemy(
+            "Goblin",
+            30,
+            8,
+            25,
+            10
+        ),
 
-        Enemy("Wolf", 40, 10),
+        Enemy(
+            "Wolf",
+            40,
+            10,
+            40,
+            20
+        ),
 
-        Enemy("Slime", 20, 5)
+        Enemy(
+            "Slime",
+            20,
+            5,
+            15,
+            5
+        )
 
     ]
 
