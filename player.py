@@ -4,12 +4,17 @@ class Player:
 
         self.name = "Hero"
         self.level = 1
-        self.hp = 100
+        self.max_hp = 100
+        self.hp = self.max_hp
         self.attack = 15
         self.defense = 5
         self.gold = 0
         self.exp = 0
         self.exp_to_next_level = 100
+        self.inventory = {
+            "Health Potion": 3
+        }
+
 
     def show_stats(self):
 
@@ -19,7 +24,7 @@ class Player:
 
         print("Level:", self.level)
 
-        print("HP:", self.hp)
+        print(f"HP: {self.hp}/{self.max_hp}")
 
         print("Attack:", self.attack)
 
@@ -27,11 +32,30 @@ class Player:
 
         print("Gold:", self.gold)
 
-        print("EXP:", self.exp)
+        print(
+            f"EXP: "
+            f"{self.exp}/{self.exp_to_next_level}"
+        )
 
-        print("Next Level:", self.exp_to_next_level)
+        print("\n===== INVENTORY =====")
+
+        for item, quantity in self.inventory.items():
+
+            print(f"{item}: {quantity}")
 
         print("=====================")
+        
+    
+    def show_inventory(self):
+
+        print("\n===== INVENTORY =====")
+
+        for item, quantity in self.inventory.items():
+
+            print(f"{item}: {quantity}")
+
+        print("=====================")
+
 
     def gain_exp(self, amount):
 
@@ -42,6 +66,7 @@ class Player:
         if self.exp >= self.exp_to_next_level:
 
             self.level_up()
+
     
     def level_up(self):
 
@@ -64,3 +89,35 @@ class Player:
         print("HP increased!")
 
         print("Attack increased!")
+
+
+    def use_potion(self):
+
+        if self.inventory["Health Potion"] <= 0:
+
+            print("You have no potions!")
+
+            return
+
+        if self.hp == self.max_hp:
+
+            print("Your HP is already full!")
+
+            return
+
+        old_hp = self.hp
+
+        heal_amount = 50
+
+        self.hp += heal_amount
+
+        if self.hp > self.max_hp:
+
+            self.hp = self.max_hp
+
+        self.inventory["Health Potion"] -= 1
+
+        print(
+            f"You recovered some HP!\n"
+            f"{old_hp} -> {self.hp}"
+        )

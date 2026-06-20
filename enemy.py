@@ -1,8 +1,6 @@
 class Enemy:
 
-    class Enemy:
-
-        def __init__(
+    def __init__(
 
             self,
 

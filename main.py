@@ -1,6 +1,7 @@
 from player import Player
 from enemy import Enemy
 from random import choice
+from random import randint
 
 def combat(player, enemy):
 
@@ -35,10 +36,25 @@ def combat(player, enemy):
 
             player.gold += enemy.gold_reward
 
+            
+
             print(
                 f"You received "
                 f"{enemy.gold_reward} gold!"
             )
+
+            drop_chance = randint(1, 100)
+
+            if drop_chance <= 30:
+
+                player.inventory[
+                    "Health Potion"
+                ] += 1
+
+                print(
+                    "The enemy dropped "
+                    "a Health Potion!"
+                )
 
             break
 
@@ -93,6 +109,38 @@ def explore(player):
     combat(player, enemy)
 
 
+def inventory_menu(player):
+
+    while True:
+
+        print("\n===== INVENTORY =====")
+
+        print("1. View Items")
+
+        print("2. Use Health Potion")
+
+        print("3. Back")
+
+        choice = input("Choice: ")
+
+        if choice == "1":
+
+            player.show_inventory()
+
+        elif choice == "2":
+
+            player.use_potion()
+
+        elif choice == "3":
+
+            break
+
+        else:
+
+            print("Invalid option.")
+
+            
+
 def town_menu(player):
 
     while True:
@@ -105,7 +153,9 @@ def town_menu(player):
 
         print("3. Character")
 
-        print("4. Quit")
+        print("4. Inventory")
+
+        print("5. Quit")
 
         choice = input("Choice: ")
 
@@ -122,6 +172,10 @@ def town_menu(player):
             player.show_stats()
 
         elif choice == "4":
+
+            inventory_menu(player)
+
+        elif choice == "5":
 
             print("Goodbye!")
 
